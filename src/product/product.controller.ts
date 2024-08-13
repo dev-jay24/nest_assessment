@@ -10,6 +10,8 @@ import {
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Role } from 'src/common/constants';
+import { Roles } from 'src/common/decorators/role/roles.decorator';
 
 @Controller('product')
 export class ProductController {
@@ -35,11 +37,13 @@ export class ProductController {
     return this.productService.findTenantProduct(+id);
   }
 
+  @Roles(Role.Admin)
   @Patch()
   update(@Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(updateProductDto);
   }
 
+  @Roles(Role.Admin)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.productService.remove(+id);
