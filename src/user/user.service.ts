@@ -6,6 +6,8 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { Tenant } from 'src/tenant/entities/tenant.entity';
 import * as bcrypt from 'bcrypt';
+import { ListItemDto } from 'src/product/dto/list-product.dto';
+import { commonExceptions } from 'src/common/helper/exception/common.exception';
 
 @Injectable()
 export class UserService {
@@ -29,29 +31,88 @@ export class UserService {
     user.password = hash;
     user.role = createUserDto.role;
     user.tenant = tenant;
-    return this.userRepository.save(user);
+
+    return {
+      message: 'User created successfully',
+      data: await this.userRepository.save(user),
+    };
   }
 
-  findAllUser() {
-    return this.userRepository.find();
+  async findAllUser(body: ListItemDto) {
+    const queryBuilder = this.userRepository.createQueryBuilder('user');
+
+    if (body?.search) {
+      queryBuilder.andWhere('user.name LIKE :userName', {
+        userName: `%${body?.search}%`,
+      });
+    }
+
+    queryBuilder.skip((body?.page - 1) * body.limit).take(body.limit);
+
+    queryBuilder.orderBy(
+      `user.${body?.orderKey ? body?.orderKey : 'name'}`,
+      body?.orderBy == 'DESC' ? 'DESC' : 'ASC',
+    );
+
+    return {
+      message: 'Users fetched successfully',
+      data: await queryBuilder.getMany(),
+    };
   }
 
-  findOneUser(id: number) {
-    return this.userRepository.findOneBy({ id });
+  async findOneUser(id: number) {
+    const res = await this.userRepository.findOneBy({ id });
+    if (res === null) {
+      throw commonExceptions.UserDontExists();
+    }
+    return {
+      message: 'User fetched successfully',
+      data: res,
+    };
   }
 
   async updateUser(updateUserDto: UpdateUserDto) {
-    const property = await this.userRepository.findOneBy({
+    const user = await this.userRepository.findOneBy({
       id: updateUserDto.id,
     });
 
-    return this.userRepository.save({
-      ...property,
+    if (!user) {
+      throw commonExceptions.UserDontExists();
+    }
+
+    let tenant: Tenant | null = null;
+    if (updateUserDto.tenant_id) {
+      tenant = await this.tenantRepository.findOneBy({
+        id: updateUserDto.tenant_id,
+      });
+      delete updateUserDto.tenant_id;
+      if (!tenant) {
+        throw commonExceptions.TenantDontExists();
+      }
+    }
+
+    const updatedUser = {
+      ...user,
       ...updateUserDto,
-    });
+      tenant,
+    };
+
+    const result = await this.userRepository.save(updatedUser);
+
+    return {
+      message: 'User updated successfully',
+      data: result,
+    };
   }
 
-  remove(id: number) {
-    return this.userRepository.delete(id);
+  async remove(id: number) {
+    const user = await this.userRepository.findOneBy({ id });
+    if (user === null) {
+      throw commonExceptions.UserDontExists();
+    }
+    await this.userRepository.delete(id);
+    return {
+      message: 'User deleted successfully',
+    };
   }
 }

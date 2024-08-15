@@ -9,4 +9,7 @@ export class UpdateUserDto {
 
   @IsOptional()
   email: string;
+
+  @IsOptional()
+  tenant_id: number;
 }

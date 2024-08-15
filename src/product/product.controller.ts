@@ -12,24 +12,25 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Role } from 'src/common/constants';
 import { Roles } from 'src/common/decorators/role/roles.decorator';
+import { ListItemDto } from './dto/list-product.dto';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productService.create(createProductDto);
+  createProduct(@Body() createProductDto: CreateProductDto) {
+    return this.productService.createProduct(createProductDto);
   }
 
-  @Get()
-  findAll() {
-    return this.productService.findAll();
+  @Post('list')
+  findAllProduct(@Body() body: ListItemDto) {
+    return this.productService.findAllProduct(body);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productService.findOne(+id);
+  findOneProduct(@Param('id') id: string) {
+    return this.productService.findOneProduct(+id);
   }
 
   @Get('tenant/:id')
@@ -39,13 +40,13 @@ export class ProductController {
 
   @Roles(Role.Admin)
   @Patch()
-  update(@Body() updateProductDto: UpdateProductDto) {
-    return this.productService.update(updateProductDto);
+  updateProduct(@Body() updateProductDto: UpdateProductDto) {
+    return this.productService.updateProduct(updateProductDto);
   }
 
   @Roles(Role.Admin)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productService.remove(+id);
+  removeProduct(@Param('id') id: string) {
+    return this.productService.removeProduct(+id);
   }
 }

@@ -23,9 +23,9 @@ export class AuthService {
     if (!bcrypt.compareSync(body.password, password)) {
       throw commonExceptions.InvalidPassAndEmail();
     }
-    console.log('user: ', user);
+
     return {
-      message: 'User SignIn succesfully ',
+      message: 'User SignIn succesfully',
       data: { ...userData, accessToken: this.generateAuthToken(user) },
     };
   }

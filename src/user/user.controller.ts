@@ -13,6 +13,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Public } from 'src/common/decorators/public/public.decorator';
 import { Roles } from 'src/common/decorators/role/roles.decorator';
 import { Role } from 'src/common/constants';
+import { ListItemDto } from 'src/product/dto/list-product.dto';
 
 @Controller('user')
 export class UserController {
@@ -25,9 +26,9 @@ export class UserController {
   }
 
   @Roles(Role.Admin)
-  @Get()
-  findAllUser() {
-    return this.userService.findAllUser();
+  @Post('list')
+  findAllUser(@Body() body: ListItemDto) {
+    return this.userService.findAllUser(body);
   }
 
   @Roles(Role.Admin)

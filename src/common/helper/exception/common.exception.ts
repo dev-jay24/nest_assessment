@@ -38,7 +38,7 @@ export const commonExceptions = {
         error: 'UserAlreadyExists',
         statusCode: HttpStatus.BAD_REQUEST,
       },
-      HttpStatus.NOT_FOUND,
+      HttpStatus.BAD_REQUEST,
     );
   },
   UserDontExists(): any {
@@ -48,7 +48,7 @@ export const commonExceptions = {
         error: 'UserDontExists',
         statusCode: HttpStatus.BAD_REQUEST,
       },
-      HttpStatus.NOT_FOUND,
+      HttpStatus.BAD_REQUEST,
     );
   },
   InvalidPassAndEmail(): any {
@@ -57,6 +57,26 @@ export const commonExceptions = {
         message: 'Invalid Email or Password',
         error: 'InvalidPassAndEmail',
         statusCode: HttpStatus.BAD_REQUEST,
+      },
+      HttpStatus.BAD_REQUEST,
+    );
+  },
+  TenantDontExists(): any {
+    return new HttpException(
+      {
+        message: 'No Such Tenant Exist.',
+        error: 'TenantDontExists',
+        statusCode: HttpStatus.NOT_FOUND,
+      },
+      HttpStatus.NOT_FOUND,
+    );
+  },
+  ProductDontExists(): any {
+    return new HttpException(
+      {
+        message: 'No Such Product Exist.',
+        error: 'ProductDontExists',
+        statusCode: HttpStatus.NOT_FOUND,
       },
       HttpStatus.NOT_FOUND,
     );
