@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class ListItemDto {
   @ApiProperty({
@@ -8,6 +8,7 @@ export class ListItemDto {
     default: '1',
   })
   @IsNotEmpty()
+  @IsNumber()
   page: number;
 
   @ApiProperty({
@@ -16,6 +17,7 @@ export class ListItemDto {
     default: '10',
   })
   @IsNotEmpty()
+  @IsNumber()
   limit: number;
 
   @ApiProperty({
@@ -24,6 +26,7 @@ export class ListItemDto {
     default: '',
   })
   @IsOptional()
+  @IsString()
   search: string;
 
   @ApiProperty({
@@ -32,6 +35,7 @@ export class ListItemDto {
     default: '',
   })
   @IsOptional()
+  @IsString()
   orderKey: string;
 
   @ApiProperty({
@@ -40,6 +44,7 @@ export class ListItemDto {
     default: '',
   })
   @IsOptional()
+  @IsString()
   orderBy: string;
 }
 
@@ -50,6 +55,7 @@ export class ListItemWithPriceDto extends ListItemDto {
     default: 0,
   })
   @IsOptional()
+  @IsNumber()
   minPrice: number;
 
   @ApiProperty({
@@ -58,5 +64,6 @@ export class ListItemWithPriceDto extends ListItemDto {
     default: 0,
   })
   @IsOptional()
+  @IsNumber()
   maxPrice: number;
 }

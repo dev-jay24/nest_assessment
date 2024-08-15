@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
-import { ListItemDto } from './dto/list-product.dto';
+import { ListItemWithPriceDto } from './dto/list-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
 describe('ProductController', () => {
@@ -46,7 +46,7 @@ describe('ProductController', () => {
   });
 
   it('Product find all controller', async () => {
-    const listItemDto: ListItemDto = {
+    const listItemDto: ListItemWithPriceDto = {
       search: 'Test',
       page: 1,
       limit: 10,
