@@ -77,8 +77,6 @@ describe('UserService', () => {
         limit: 10,
         orderKey: 'name',
         orderBy: 'ASC',
-        minPrice: 0,
-        maxPrice: 1000,
       };
 
       const users = [new User()];

@@ -5,7 +5,7 @@ import { Product } from './entities/product.entity';
 import { Repository } from 'typeorm';
 import { Tenant } from 'src/tenant/entities/tenant.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ListItemDto } from './dto/list-product.dto';
+import { ListItemWithPriceDto } from './dto/list-product.dto';
 import { commonExceptions } from 'src/common/helper/exception/common.exception';
 
 @Injectable()
@@ -32,7 +32,7 @@ export class ProductService {
     };
   }
 
-  async findAllProduct(body: ListItemDto) {
+  async findAllProduct(body: ListItemWithPriceDto) {
     const queryBuilder = this.productRepository.createQueryBuilder('product');
 
     if (body?.search) {

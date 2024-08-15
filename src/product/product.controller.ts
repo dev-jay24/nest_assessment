@@ -12,8 +12,10 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Role } from 'src/common/constants';
 import { Roles } from 'src/common/decorators/role/roles.decorator';
-import { ListItemDto } from './dto/list-product.dto';
+import { ListItemWithPriceDto } from './dto/list-product.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Product')
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -24,7 +26,7 @@ export class ProductController {
   }
 
   @Post('list')
-  findAllProduct(@Body() body: ListItemDto) {
+  findAllProduct(@Body() body: ListItemWithPriceDto) {
     return this.productService.findAllProduct(body);
   }
 

@@ -70,8 +70,6 @@ describe('TenantService', () => {
         limit: 10,
         orderKey: 'name',
         orderBy: 'ASC',
-        minPrice: 0,
-        maxPrice: 1000,
       };
 
       const tenants = [
@@ -102,8 +100,6 @@ describe('TenantService', () => {
         limit: 10,
         orderKey: 'name',
         orderBy: 'ASC',
-        minPrice: 0,
-        maxPrice: 1000,
       };
 
       const tenants = [new Tenant()];
@@ -140,8 +136,6 @@ describe('TenantService', () => {
         limit: 10,
         orderKey: 'name',
         orderBy: 'ASC',
-        minPrice: 0,
-        maxPrice: 1000,
       };
 
       const tenants = [new Tenant()];

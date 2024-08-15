@@ -7,7 +7,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { TenantTestRepository } from '../../test-cases/test-mock-model/tenant.mockRepository';
 import { ProductTestRepository } from '../../test-cases/test-mock-model/product.mockRepository';
 import { CreateProductDto } from './dto/create-product.dto';
-import { ListItemDto } from './dto/list-product.dto';
+import { ListItemDto, ListItemWithPriceDto } from './dto/list-product.dto';
 import { commonExceptions } from 'src/common/helper/exception/common.exception';
 import { UpdateProductDto } from './dto/update-product.dto';
 
@@ -70,7 +70,7 @@ describe('ProductService', () => {
 
   describe('findAllProduct', () => {
     it('should return a list of products', async () => {
-      const listItemDto: ListItemDto = {
+      const listItemDto: ListItemWithPriceDto = {
         search: 'Test',
         page: 1,
         limit: 10,

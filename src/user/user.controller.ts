@@ -14,7 +14,9 @@ import { Public } from 'src/common/decorators/public/public.decorator';
 import { Roles } from 'src/common/decorators/role/roles.decorator';
 import { Role } from 'src/common/constants';
 import { ListItemDto } from 'src/product/dto/list-product.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}

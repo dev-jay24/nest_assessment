@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -13,7 +14,9 @@ import { UpdateTenantDto } from './dto/update-tenant.dto';
 import { Roles } from 'src/common/decorators/role/roles.decorator';
 import { Role } from 'src/common/constants';
 import { ListItemDto } from 'src/product/dto/list-product.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Tenant')
 @Controller('tenant')
 export class TenantController {
   constructor(private readonly tenantService: TenantService) {}

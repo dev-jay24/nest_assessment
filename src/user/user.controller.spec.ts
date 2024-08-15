@@ -52,8 +52,6 @@ describe('UserController', () => {
       limit: 10,
       orderKey: 'name',
       orderBy: 'ASC',
-      minPrice: 0,
-      maxPrice: 1000,
     };
 
     const response = await controller.findAllUser(listItemDto);
